@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import Header from "./components/header";
 import TodoItem from "./components/todoItem";
+import AddTodo from "./components/addTodo";
 
 export default function App() {
   const [list, setList] = useState([
@@ -14,10 +15,23 @@ export default function App() {
     setList(prevList => prevList.filter(item => item.id !== id))
   };
 
+  const submitHandler = text => {
+    const newItem =
+
+    setList(prevList => ([
+      ...prevList,
+      {
+        text: text,
+        id: Math.random().toString()
+      }
+    ]))
+  };
+
   return (
     <View style={styles.container}>
       <Header />
       <View style={styles.content}>
+        <AddTodo submitHandler={submitHandler} />
         <View style={styles.list}>
           <FlatList
             keyExtractor = { (item) => item.id }

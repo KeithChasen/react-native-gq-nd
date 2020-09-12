@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import Header from "./components/header";
+import TodoItem from "./components/todoItem";
 
 export default function App() {
   const [list, setList] = useState([
@@ -8,6 +9,10 @@ export default function App() {
     { text: 'Learn GraphQL', id: 2 },
     { text: 'Make an awesome project', id: 3 },
   ]);
+
+  const pressHandler = (id) => {
+    setList(prevList => prevList.filter(item => item.id !== id))
+  };
 
   return (
     <View style={styles.container}>
@@ -18,7 +23,7 @@ export default function App() {
             keyExtractor = { (item) => item.id }
           data={list}
             renderItem={({ item }) => (
-              <Text>{ item.text}</Text>
+              <TodoItem item={item} pressHandler={pressHandler}/>
             )}
           />
         </View>

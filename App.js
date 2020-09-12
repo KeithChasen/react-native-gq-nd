@@ -1,36 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import Header from "./components/header";
 
 export default function App() {
-  const [people, setPeople] = useState([
-    {name: 'Kostya', id: 1},
-    {name: 'Keith', id: 2},
-    {name: 'John', id: 3},
-    {name: 'Jack', id: 4},
-    {name: 'Shaun', id: 5},
-    {name: 'Paul', id: 6},
-    {name: 'Kevin', id: 7},
-    {name: 'Marshal', id: 8},
+  const [list, setList] = useState([
+    { text: 'Learn React Native', id: 1 },
+    { text: 'Learn GraphQL', id: 2 },
+    { text: 'Make an awesome project', id: 3 },
   ]);
-
-  const pressHandler = id => {
-    const updatedPeople = people.filter(person => person.id !== id);
-    setPeople(updatedPeople)
-  };
 
   return (
     <View style={styles.container}>
-      <FlatList
-        numColumns={2}
-        keyExtractor={item => item.id}
-        data={people}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => pressHandler(item.id)}>
-            <Text style={styles.person}>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-      />
+      <Header />
+      <View style={styles.content}>
+        <View style={styles.list}>
+          <FlatList
+            keyExtractor = { (item) => item.id }
+          data={list}
+            renderItem={({ item }) => (
+              <Text>{ item.text}</Text>
+            )}
+          />
+        </View>
+      </View>
     </View>
   );
 }
@@ -38,17 +30,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 40,
-    paddingHorizontal: 20
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    backgroundColor: '#fff'
   },
-  person: {
-    marginTop: 24,
-    padding: 30,
-    backgroundColor: 'pink',
-    fontSize: 24,
-    marginHorizontal: 10,
+  content: {
+    padding: 40
+  },
+  list: {
+    marginTop: 20
   }
 });

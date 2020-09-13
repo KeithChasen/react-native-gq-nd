@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import * as Font from 'expo-font'
+import { AppLoading } from 'expo'
 import Home from "./screens/home";
 
+const getFonts = () => Font.loadAsync({
+  'amadora': require('./assets/fonts/Amadora.ttf')
+});
+
 export default function App() {
-  return (
-    <Home />
-  );
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  if (fontsLoaded) {
+    return (
+      <Home />
+    );
+  } else {
+    return <AppLoading
+      startAsync={getFonts}
+      onFinish={()=>setFontsLoaded(true)}
+    />
+  }
+
 }
 

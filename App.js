@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Alert } from 'react-native';
 import Header from "./components/header";
 import TodoItem from "./components/todoItem";
 import AddTodo from "./components/addTodo";
@@ -16,15 +16,20 @@ export default function App() {
   };
 
   const submitHandler = text => {
-    const newItem =
+    if (text.length > 3) {
+      setList(prevList => ([
+        ...prevList,
+        {
+          text: text,
+          id: Math.random().toString()
+        }
+      ]))
+    } else {
+      Alert.alert('Whoops!', 'Text should be over 3 characters long', [
+        { text: 'Ok', onPress: () => console.log('button pressed')}
+      ])
+    }
 
-    setList(prevList => ([
-      ...prevList,
-      {
-        text: text,
-        id: Math.random().toString()
-      }
-    ]))
   };
 
   return (
